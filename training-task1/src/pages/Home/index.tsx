@@ -1,11 +1,14 @@
+import Category from "../../components/Category";
 import Header from "../../components/Header";
-import './Home.module.scss'
+import LocationList from "../../components/LocationList/LocationList";
+import styles from "./Home.module.scss";
 
-
-export default function Home () {
+export default function Home() {
   return (
-    <div>
+    <div className={styles.homeContainer}>
       <Header />
+      <Category />
+      <LocationList />
     </div>
   );
 }

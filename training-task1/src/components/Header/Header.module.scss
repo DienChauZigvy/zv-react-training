@@ -1,18 +1,38 @@
 @use '../../variables' as v;
+@import '../../mixins';
 
 .headerContainer {
     color: v.$text-colour-light;
     border-bottom: 1px solid #f0e8e8;
     padding-bottom: 20px;
 
+
+
     .topHeader {
         padding: 0 80px;
+        width: calc(100% - 160px);
         height: 80px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 20px;
+        position: fixed;
+        top: 0;
+
+        @include mobile {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        @include tablet {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+
+        background-color: #fff;
+        z-index: 10;
 
 
         .linkButton {
@@ -27,8 +47,6 @@
 
             }
         }
-
-
 
         .account {
             display: flex;
@@ -61,12 +79,69 @@
                 align-items: center;
                 gap: 8px;
                 padding: 4px;
-                border-radius: 20px;
+                border-radius: 32px;
                 font-size: 24px;
+                border: 1px #ddd solid;
+                transition: all 0.3s ease;
+                cursor: pointer;
 
                 .avataIcon {
                     font-size: 35px;
                 }
+
+                &:hover {
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+                }
+
+
+            }
+        }
+
+        .dropdown {
+            position: relative;
+            font-size: 14px;
+            border-radius: 15px;
+
+
+            .dropDownContent {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 52px;
+                background-color: #f9f9f9;
+                width: 100%;
+                width: 220px;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                overflow: hidden;
+                z-index: 1;
+                background-color: #fff;
+                border-radius: 15px;
+                padding: 8px 0;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+
+
+                .dropDownItem {
+                    // width: 100%;
+                    padding: 8px 20px;
+
+                    &:hover {
+                        background-color: #f2edf2;
+                    }
+                }
+            }
+
+            .isShowMenu {
+                display: block;
+                transition: all 0.3s ease-in-out;
+            }
+
+
+
+            .active {
+                background-color: #f9f9f9;
+                color: v.$text-colour-dark;
+                font-weight: 500;
             }
         }
 
@@ -74,8 +149,12 @@
 
     }
 
+
+
+
     .searchContainer {
         margin: 0 auto;
+        margin-top: 80px;
         display: flex;
         align-items: center;
         width: 850px;
@@ -86,6 +165,8 @@
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         box-sizing: border-box;
         position: relative;
+        overflow: hidden;
+        outline: none;
 
         .flex2 {
             flex-grow: 2;
@@ -95,21 +176,27 @@
             flex-grow: 1;
         }
 
+
+
         .searchButton {
-            border-radius: 32px;
+            position: relative;
             display: flex;
             flex-direction: column;
             padding: 14px 32px;
             border: 1px solid transparent;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            border-radius: 32px;
 
-            // &::after {
-            //     content: "";
-            //     display: block;
-            //     width: 2px;
-            //     background-color: #e1e1e1;
-            //     height: 30px;
-            // }
+            .divider {
+                width: 1px;
+                height: 30px;
+                background-color: #ddd;
+                position: absolute;
+                top: 18px;
+                right: 0px;
+            }
+
 
             .textBold {
                 font-weight: 600;
@@ -119,14 +206,18 @@
 
             &:hover {
                 background-color: #EBEBEB;
+
+                .divider {
+                    display: none;
+                }
             }
         }
 
         .icon {
             position: absolute;
-            right: 30px;
-            top: 15px;
-            padding: 8px 8px;
+            right: 10px;
+            top: 8px;
+            padding: 15px 15px;
             background-color: #FF385C;
             border-radius: 100%;
             color: white;

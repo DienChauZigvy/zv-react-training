@@ -1,0 +1,66 @@
+@import '../../mixins';
+
+.categoryContainer {
+    display: flex;
+    gap: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    justify-content: space-between;
+    overflow-x: scroll;
+
+    @include mobile {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    @include tablet {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .categoryList {
+        display: flex;
+        gap: 20px;
+        overflow: scroll;
+        flex-grow: 1;
+    }
+
+    .filterContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .filterTax {
+            min-width: 200px;
+
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
+        }
+
+
+
+    }
+
+
+
+}

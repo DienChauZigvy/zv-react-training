@@ -1,0 +1,19 @@
+@import '../../mixins';
+
+.locationListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; // display: grid;
+    // grid-template-columns: auto auto auto auto auto auto;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 20px 80px;
+
+    @include mobile {
+        padding: 10px;
+    }
+
+    @include tablet {
+        padding: 10px;
+    }
+}

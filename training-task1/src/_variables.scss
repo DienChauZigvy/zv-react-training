@@ -1,4 +1,37 @@
 $text-colour-light: #717171;
 $text-colour-dark: #222222;
 $text-link-color: #646cff;
-$bg-color: green
+$bg-color: green;
+
+
+// $SM: 480px;
+// $SM: 640px;
+// $MD: 768px;
+// $LG: 1024px;
+// $XL: 1280px;
+
+// @mixin Responsive($canvas) {
+//     @if $canvas ==XS {
+//         @media only screen and (min-width: $XS) {
+//             @content;
+//         }
+//     }
+
+//     @else if $canvas ==SM {
+//         @media only screen and (min-width: $SM) {
+//             @content;
+//         }
+//     }
+
+//     @else if $canvas ==MD {
+//         @media only screen and (min-width: $MD) {
+//             @content;
+//         }
+//     }
+
+//     @else if $canvas ==XL {
+//         @media only screen and (min-width: $XL) {
+//             @content;
+//         }
+//     }
+// }

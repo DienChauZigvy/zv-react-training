@@ -1,0 +1,39 @@
+.containerCategoryItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: #717171;
+    cursor: pointer;
+    transition: all ease;
+    border-bottom: 2px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    border-bottom: 2px solid transparent;
+    flex-shrink: 0;
+    flex-grow: 1;
+
+    .icon {
+        font-size: 20px;
+    }
+
+    .title {
+        font-weight: 500;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+
+
+    &:hover {
+        color: #222222;
+        border-bottom-color: #222222;
+
+    }
+}
+
+.selectedCategoryItem {
+    color: #222222;
+    border-bottom-color: #222222;
+}
