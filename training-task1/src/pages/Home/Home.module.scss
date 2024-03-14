@@ -1,1 +1,11 @@
-.homeContainer {}
+.homeContainer {
+    // overflow: hidden;
+
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 80px;
+        z-index: 10;
+        background-color: white;
+    }
+}

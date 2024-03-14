@@ -20,8 +20,8 @@ export default function LocationItem({
     <div className={styles.locationItemContainer}>
       <ImageSlider data={images} isFavorite={isFavorite} />
 
-      <div className={styles.description}>
-        <div className={styles.title}>
+      <div className={`${styles.description} ${styles.truncate}`}>
+        <div className={`${styles.title} ${styles.truncate}`}>
           <span>{title}</span>
           <p>
             <IoMdStarOutline />

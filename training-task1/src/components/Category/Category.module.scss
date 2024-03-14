@@ -21,6 +21,11 @@
         padding-right: 10px;
     }
 
+    @include medium {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
     .categoryList {
         display: flex;
         gap: 20px;

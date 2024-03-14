@@ -23,11 +23,19 @@
         @include mobile {
             padding-left: 10px;
             padding-right: 10px;
+            width: calc(100% - 20px);
         }
 
         @include tablet {
             padding-left: 10px;
             padding-right: 10px;
+            width: calc(100% - 20px);
+        }
+
+        @include medium {
+            padding-left: 10px;
+            padding-right: 10px;
+            width: calc(100% - 20px);
         }
 
 
@@ -40,6 +48,14 @@
             padding: 12px 16px;
             border-radius: 20px;
             color: v.$text-colour-light;
+
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
 
             &:hover {
                 color: v.$text-colour-dark;
@@ -167,6 +183,22 @@
         position: relative;
         overflow: hidden;
         outline: none;
+
+
+        @include mobile {
+            display: none;
+        }
+
+        @include tablet {
+            display: none;
+        }
+
+        @include medium {
+            padding-left: 10px;
+            padding-right: 10px;
+            width: auto;
+            min-width: 0;
+        }
 
         .flex2 {
             flex-grow: 2;

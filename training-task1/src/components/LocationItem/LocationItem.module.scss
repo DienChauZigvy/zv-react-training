@@ -1,18 +1,17 @@
 @import '../../mixins';
 
 .locationItemContainer {
-    width: 280px;
     font-size: 15px;
     color: #717171;
-    padding: 0 10px;
     margin-bottom: 20px;
+    transition: all 0.3s ease;
 
     @include mobile {
-        width: 400px;
+        min-width: 400px;
     }
 
     @include tablet {
-        width: 400px;
+        min-width: 400px;
     }
 
     .description {
@@ -50,6 +49,12 @@
             }
         }
     }
+
+    .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 .carousel {
@@ -57,25 +62,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 296px;
     height: 300px;
 
     @include mobile {
-        width: 400px;
         height: 400px;
     }
 
     @include tablet {
-        width: 400px;
         height: 400px;
+    }
+
+    &:hover {
+        .arrow {
+            display: block;
+        }
+
+        .arrowLeft {
+            display: block;
+        }
+
+        .arrowRight {
+            display: block;
+        }
     }
 
 
     .slide {
-        border-radius: 0.5rem;
-        box-shadow: 0px 0px 7px #666;
+        border-radius: 32px;
+        // box-shadow: 0px 0px 7px #666;
         width: 100%;
         height: 100%;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .hidden {
+        display: none;
     }
 
     .slideHidden {
@@ -84,36 +105,53 @@
 
     .arrow {
         position: absolute;
-        filter: drop-shadow(0px 0px 5px #555);
+        // filter: drop-shadow(0px 0px 5px #555);
         width: 1.6rem;
         height: 1.6rem;
         background-color: white;
         border-radius: 100%;
         color: #000;
+        display: none;
+        transition: all 0.3s ease;
     }
 
     .arrow:hover {
+        display: block;
         cursor: pointer;
         transform: scale(1.05);
+        transition: all 0.3s ease;
     }
 
     .arrowLeft {
+        display: none;
         left: 1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            display: block;
+        }
     }
 
     .arrowRight {
+        display: none;
         right: 1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            display: block;
+        }
     }
 
     .indicators {
-        // display: flex;
+        display: flex;
         position: absolute;
         bottom: 1rem;
 
         .indicator {
+
             background-color: rgba(210, 187, 187, 0.882);
-            height: 10px;
-            width: 5px;
+            height: 8px;
+            width: 8px;
             border-radius: 100%;
             border: none;
             outline: none;
@@ -125,5 +163,24 @@
         .indicatorInactive {
             background-color: white;
         }
+    }
+
+    .favorite {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        transition: all 0.3s ease;
+
+        .heartIcon {
+            font-size: 30px;
+            cursor: pointer;
+            color: #fff;
+
+        }
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
     }
 }

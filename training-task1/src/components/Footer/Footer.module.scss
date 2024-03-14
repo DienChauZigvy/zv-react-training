@@ -1,0 +1,247 @@
+@import '../../mixins';
+
+.footerContainer {
+    background-color: #F7F7F7;
+
+    .topFooter {
+        color: #222222;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 1fr);
+        gap: 24px;
+        padding: 48px 80px;
+
+        @include mobile {
+            display: block;
+            padding: 48px 40px;
+        }
+
+        @include tablet {
+            display: block;
+            padding: 48px 40px;
+        }
+
+        @include medium {
+            display: block;
+            padding: 48px 40px;
+        }
+
+
+        .topFooterContainer {
+            grid-column-start: 2;
+
+            h3 {
+                margin-bottom: 16px;
+                font-weight: 600;
+                font-size: 1.375rem;
+                margin-top: 0;
+            }
+
+            .tasContainer {
+                display: flex;
+                font-size: 0.875rem;
+                gap: 20px;
+                border-bottom: 1px solid #dddd;
+                overflow-x: scroll;
+                width: 100%;
+
+                .tab {
+                    color: #717171;
+                    font-weight: 600;
+                    flex-shrink: 0;
+
+                    .activeTab {
+                        border-bottom: 2px solid #222222;
+                        color: #222222;
+                        padding-bottom: 10px;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+            }
+
+            .tabContent {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 8px;
+
+                @include mobile {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @include tablet {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                @include medium {
+                    grid-template-columns: repeat(6, 1fr);
+                }
+
+                .tabContentItem {
+                    font-size: 0.875rem;
+                    margin-top: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    h4 {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    span {
+                        color: #717171;
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    .midFooter {
+        font-size: 0.875rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 1fr);
+        gap: 24px;
+        padding: 48px 80px 0 80px;
+
+        @include mobile {
+            display: block;
+        }
+
+        @include tablet {
+            display: block;
+            padding: 48px 40px 0 48px;
+        }
+
+        @include medium {
+            display: block;
+            padding: 48px 40px 0 48px;
+        }
+
+
+        .links {
+            grid-column-start: 2;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            column-gap: 8px;
+            padding-bottom: 40px;
+
+            @include mobile {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include tablet {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            @include medium {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+
+            .item {
+                display: grid;
+                gap: 12px;
+
+                .title {
+                    font-weight: 600;
+                    color: #222;
+                }
+
+                .link {
+                    &:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .bottomFooter {
+            grid-column-start: 2;
+            border-top: 1px solid #ddd;
+            padding: 24px 0;
+            gap: 10px;
+            display: flex;
+            justify-content: space-between;
+
+            @include mobile {
+                flex-direction: row-reverse;
+            }
+
+            @include tablet {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column-reverse;
+
+            }
+
+
+
+
+            .leftSection {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+
+                p {
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    gap: 8px;
+
+                    .text {
+                        display: block;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .rightSection {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                align-items: center;
+                color: #222;
+                font-weight: 600;
+
+                .flex {
+                    display: flex;
+                    gap: 20px;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .hoverLink {
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .hoverIcon {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.divider {
+    width: full;
+    height: 1px;
+    background-color: #ddd;
+}
