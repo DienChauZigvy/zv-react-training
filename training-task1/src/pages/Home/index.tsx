@@ -1,6 +1,6 @@
-import Category from "../../components/Category";
+import Category from "./components/Category";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import Header from "./components/Header";
 import LocationList from "../../components/LocationList/LocationList";
 import { ToastTypes, useToast } from "../../components/Toast/ToastContext";
 import styles from "./Home.module.scss";
@@ -13,15 +13,8 @@ export default function Home() {
       <div className={styles.sticky}>
         <Category />
       </div>
-      <button
-        onClick={() => {
-          toast?.open("This is a toast message!");
-        }}
-      >
-        Toast message
-      </button>
 
-      <button
+      {/* <button
         onClick={() => {
           toast?.showToast("This is warning toast", ToastTypes.WARNING);
         }}
@@ -44,18 +37,11 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          toast?.warning("This is warning toast");
-        }}
-      >
-        Toast warning
-      </button>
-      <button
-        onClick={() => {
           toast?.error("This is error toast");
         }}
       >
         Toast error
-      </button>
+      </button> */}
       <LocationList />
       <Footer />
     </div>

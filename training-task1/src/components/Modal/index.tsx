@@ -6,19 +6,24 @@ interface modalProps {
   onCancel?: () => void;
   onClose?: () => void;
   children?: ReactNode;
+  title?: string;
 }
 
-const Modal = ({ onSubmit, onCancel, onClose, children }: modalProps) => {
+const Modal = ({
+  onSubmit,
+  onCancel,
+  onClose,
+  children,
+  title,
+}: modalProps) => {
   return (
-    <div
-      className={styles.modalContainer}
-      //   onClick={(e) => {
-      //     if (e.target.className === "modal-container") closeModal();
-      //   }}
-    >
+    <div className={styles.modalContainer}>
       <div className={styles.modal}>
-        <div className={styles.modalHeader} onClick={onClose}>
-          <p className={styles.close}>&times;</p>
+        <div className={styles.modalHeader}>
+          <div onClick={onClose} className={styles.close}>
+            &times;
+          </div>
+          <div className={styles.title}>{title}</div>
         </div>
         <div className={styles.modalContent}>{children}</div>
         <div className={styles.modalFooter}>

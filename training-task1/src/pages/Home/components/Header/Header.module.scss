@@ -1,5 +1,5 @@
-@use '../../variables' as v;
-@import '../../mixins';
+@use '../../../../variables' as v;
+@import '../../../../mixins';
 
 .headerContainer {
     color: v.$text-colour-light;

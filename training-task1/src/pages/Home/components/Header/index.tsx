@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 import { MdLanguage, MdOutlineMenu, MdAccountCircle } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
-import Modal from "../Modal";
-import { createPortal } from "react-dom";
+
+import LoginModal from "../LoginModal";
 
 export default function Header() {
   const [isShowMenu, setShowMenu] = useState(false);
-  const [showModal, setShowModal] = useState(true);
-
-  const toggleMenu = () => {
-    setShowMenu(!isShowMenu);
-  };
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className={styles.headerContainer}>
@@ -52,7 +48,7 @@ export default function Header() {
             <MdLanguage className={styles.languagesButton} />
           </span>
 
-          <div onClick={toggleMenu}>
+          <div onClick={() => setShowMenu(!isShowMenu)}>
             <div className={styles.accountMenu}>
               <MdOutlineMenu />
               <MdAccountCircle className={styles.avataIcon} />
@@ -61,10 +57,18 @@ export default function Header() {
             <div
               className={`${styles.dropDownContent} ${isShowMenu ? styles.isShowMenu : null}`}
             >
-              <div className={`${styles.dropDownItem} ${styles.active}`}>
+              <div
+                onClick={() => setShowModal(true)}
+                className={`${styles.dropDownItem} ${styles.active}`}
+              >
                 Sign up
               </div>
-              <div className={styles.dropDownItem}>Log in</div>
+              <div
+                className={styles.dropDownItem}
+                onClick={() => setShowModal(true)}
+              >
+                Log in
+              </div>
               <div className={styles.dividerMenu}></div>
               <div className={styles.dropDownItem}>Gift cards</div>
               <div className={styles.dropDownItem}>Airbnb your home</div>
@@ -97,11 +101,7 @@ export default function Header() {
           <IoSearchOutline className={styles.icon} />
         </div>
       </div>
-      {showModal &&
-        createPortal(
-          <Modal onClose={() => setShowModal(false)}>Hello </Modal>,
-          document.body,
-        )}
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }

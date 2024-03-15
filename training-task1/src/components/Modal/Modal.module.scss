@@ -1,4 +1,4 @@
-.modal-container {
+.modalContainer {
     position: fixed;
     left: 0;
     top: 0;
@@ -8,38 +8,115 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    .modal {
+        position: relative;
+        border-radius: 10px;
+        // padding: 0px 2rem;
+        background-color: white;
+        width: 30em;
+        animation: scaleUp 0.5s;
+
+        .btn {
+            outline: none;
+            padding: 10px 20px;
+            font-weight: 550;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .btnSubmit {
+            background-color: #42a942;
+
+        }
+
+        .btnCancel {
+            background-color: #d9534f;
+        }
+
+        .close {
+            cursor: pointer;
+        }
+
+        .modalHeader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            height: 64px;
+            border-bottom: 1px solid #ddd;
+
+            .title {
+                font-weight: 600;
+            }
+
+            .close {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                margin: 0;
+                font-size: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.3s;
+
+                &:hover {
+                    background-color: beige;
+                    padding: 0 10px;
+                    border-radius: 100%;
+
+                }
+            }
+        }
+
+        .modalContent {
+            margin-bottom: 2rem;
+            padding: 20px;
+        }
+
+        .modalFooter {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+        }
+    }
 }
 
-.modal {
-    border-radius: 5px;
-    padding: 2rem;
-    background-color: white;
-    width: 30em;
+@keyframes modalIn {
+    0% {
+        transform: translate(100%);
+    }
+
+    60% {
+        transform: translate(-15%);
+    }
+
+    80% {
+        transform: translateY(5%);
+    }
+
+    80% {
+        transform: translateY(0);
+    }
 }
 
-.btn-submit {
-    background-color: #42a942;
-}
+@keyframes scaleUp {
+    0% {
+        transform: scale(.5) translateY(1000px);
+        opacity: 0;
+    }
 
-.btn-cancel {
-    background-color: #d9534f;
-}
-
-.close {
-    cursor: pointer;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 2rem;
-}
-
-.modal-content {
-    margin-bottom: 2rem;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: space-evenly;
+    100% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
 }
