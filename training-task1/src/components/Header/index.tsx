@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { MdLanguage, MdOutlineMenu, MdAccountCircle } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
+import Modal from "../Modal";
+import { createPortal } from "react-dom";
 
 export default function Header() {
   const [isShowMenu, setShowMenu] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const toggleMenu = () => {
     setShowMenu(!isShowMenu);
@@ -94,6 +97,11 @@ export default function Header() {
           <IoSearchOutline className={styles.icon} />
         </div>
       </div>
+      {showModal &&
+        createPortal(
+          <Modal onClose={() => setShowModal(false)}>Hello </Modal>,
+          document.body,
+        )}
     </div>
   );
 }

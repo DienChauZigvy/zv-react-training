@@ -1,4 +1,4 @@
-import LocationItem from "../LocationItem";
+import LocationItem from "./LocationItem";
 import styles from "./LocationList.module.scss";
 import { locationsData } from "../../data/index";
 

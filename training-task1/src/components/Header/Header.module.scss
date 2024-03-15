@@ -19,6 +19,7 @@
         gap: 20px;
         position: fixed;
         top: 0;
+        z-index: 10;
 
         @include mobile {
             padding-left: 10px;
@@ -120,6 +121,7 @@
 
 
             .dropDownContent {
+                z-index: 12;
                 display: none;
                 position: absolute;
                 right: 0;

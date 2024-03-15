@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { LocationItemProps } from "../../types";
+import { LocationItemProps } from "../../../types";
 import styles from "./LocationItem.module.scss";
 
 import ImageSlider from "./ImageSlider";

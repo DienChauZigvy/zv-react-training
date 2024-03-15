@@ -1,108 +1,272 @@
 import styles from "./Footer.module.scss";
+import { useState } from "react";
 
-const categories = [
+const tabs = [
   {
     title: "Popular",
-    active: true,
+    content: [
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Hay-on-Wye",
+        des: "Cottage rentals",
+      },
+      {
+        title: "Llandudno",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Tenby",
+        des: "Beach house rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Llandudno",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Tenby",
+        des: "Beach house rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Arts & culture",
-    active: false,
+    content: [
+      {
+        title: "Phoenix",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Prague",
+        des: "Vacation rentals",
+      },
+      {
+        title: " York",
+        des: "Pet-friendly rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Outdoors",
-    active: false,
+    content: [
+      {
+        title: "Lake Martin",
+        des: "Apartment rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Mountains",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 3",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Beach",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 4",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: " Unique stays",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 5",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Categories",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 6",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Things to do",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 7",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Travel tips & inspiration",
-    active: false,
+    content: [
+      {
+        title: "Anaheim 8",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
   {
     title: "Airbnb-friendly apartments",
-    active: false,
-  },
-];
-
-const content = [
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
-  },
-  {
-    title: "Chincoteague",
-    des: "Rentals with pools",
-  },
-  {
-    title: " Williamsburg",
-    des: "Vacation rentals",
-  },
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
-  },
-  {
-    title: "Chincoteague",
-    des: "Rentals with pools",
-  },
-  {
-    title: " Williamsburg",
-    des: "Vacation rentals",
-  },
-  {
-    title: "Hay-on-Wye",
-    des: "Cottage rentals",
-  },
-  {
-    title: "Llandudno",
-    des: "Vacation rentals",
-  },
-  {
-    title: "Tenby",
-    des: "Beach house rentals",
-  },
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
-  },
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
-  },
-  {
-    title: "Llandudno",
-    des: "Vacation rentals",
-  },
-  {
-    title: "Tenby",
-    des: "Beach house rentals",
-  },
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
-  },
-  {
-    title: "Anaheim",
-    des: "Condo rentals",
+    content: [
+      {
+        title: "Anaheim 9",
+        des: "Condo rentals",
+      },
+      {
+        title: "Chincoteague",
+        des: "Rentals with pools",
+      },
+      {
+        title: " Williamsburg",
+        des: "Vacation rentals",
+      },
+      {
+        title: "Anaheim",
+        des: "Condo rentals",
+      },
+    ],
   },
 ];
 
@@ -134,6 +298,7 @@ const airbnbs = [
   "Airbnb.org emergency stays",
 ];
 export default function Footer() {
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <div>
       <div className={styles.footerContainer}>
@@ -142,16 +307,22 @@ export default function Footer() {
             <h3>Inspiration for future getaways</h3>
             <div className={styles.borderBottom}>
               <div className={styles.tasContainer}>
-                {categories.map((item) => (
-                  <div key={item.title} className={styles.tab}>
-                    <div className={`${item.active ? styles.activeTab : ""}`}>
+                {tabs.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setActiveTab(index)}
+                    className={styles.tab}
+                  >
+                    <div
+                      className={`${index === activeTab ? styles.activeTab : ""}`}
+                    >
                       {item.title}
                     </div>
                   </div>
                 ))}
               </div>
               <div className={styles.tabContent}>
-                {content.map((item, index) => (
+                {tabs[activeTab].content.map((item, index) => (
                   <div key={index} className={styles.tabContentItem}>
                     <h4>{item.title}</h4>
                     <span>{item.des}</span>
