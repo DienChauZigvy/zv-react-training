@@ -26,22 +26,22 @@ const Modal = ({
           <div className={styles.title}>{title}</div>
         </div>
         <div className={styles.modalContent}>{children}</div>
-        <div className={styles.modalFooter}>
-          <button
-            type="submit"
-            className={`${styles.btn} ${styles.btnSubmit}`}
-            onClick={onSubmit}
-          >
-            Submit
-          </button>
-          <button
-            type="submit"
-            className={`${styles.btn} ${styles.btnCancel}`}
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-        </div>
+        {/* <div className={styles.modalFooter}>
+            <button
+              type="submit"
+              className={`${styles.btn} ${styles.btnSubmit}`}
+              onClick={onSubmit}
+            >
+              Submit
+            </button>
+            <button
+              type="submit"
+              className={`${styles.btn} ${styles.btnCancel}`}
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+          </div> */}
       </div>
     </div>
   );

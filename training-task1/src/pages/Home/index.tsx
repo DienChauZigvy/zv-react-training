@@ -1,19 +1,21 @@
-import Category from "./components/Category";
 import Footer from "../../components/Footer";
-import Header from "./components/Header";
+import { RegistrationForm } from "../../components/FormInput";
 import LocationList from "../../components/LocationList/LocationList";
-import { ToastTypes, useToast } from "../../components/Toast/ToastContext";
+import { useToast } from "../../components/Toast/ToastContext";
 import styles from "./Home.module.scss";
+import Category from "./components/Category";
+import Header from "./components/Header";
 
 export default function Home() {
   const toast = useToast();
+
   return (
     <div className={styles.homeContainer}>
       <Header />
       <div className={styles.sticky}>
         <Category />
       </div>
-
+      <RegistrationForm />
       {/* <button
         onClick={() => {
           toast?.showToast("This is warning toast", ToastTypes.WARNING);

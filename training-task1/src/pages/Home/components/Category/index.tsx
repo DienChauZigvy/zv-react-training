@@ -8,6 +8,7 @@ import { categoryList } from "../../../../data/catagory";
 
 export default function Category() {
   const [toggleFilterButton, setToggleFilterButton] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <div className={styles.categoryContainer}>
       <div className={styles.categoryList}>
@@ -16,7 +17,8 @@ export default function Category() {
             key={index}
             title={item.title}
             icon={item.icon}
-            selected={item.selected}
+            selected={!!activeTab}
+            onClick={() => setActiveTab(index)}
           />
         ))}
       </div>

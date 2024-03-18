@@ -9,14 +9,19 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    overflow: scroll;
 
     .modal {
         position: relative;
         border-radius: 10px;
-        // padding: 0px 2rem;
+        margin: 20px 0;
         background-color: white;
-        width: 30em;
+        width: 600px;
+        max-width: 50%;
         animation: scaleUp 0.5s;
+        max-height: fit-content;
+        overflow-y: scroll;
+        // height: -webkit-fill-available;
 
         .btn {
             outline: none;
@@ -79,7 +84,6 @@
         }
 
         .modalContent {
-            margin-bottom: 2rem;
             padding: 20px;
         }
 
@@ -104,7 +108,7 @@
         transform: translateY(5%);
     }
 
-    80% {
+    100% {
         transform: translateY(0);
     }
 }

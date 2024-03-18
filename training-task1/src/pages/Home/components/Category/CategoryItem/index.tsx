@@ -5,6 +5,7 @@ export interface CategoryItemProps {
   title: string;
   icon: IconType;
   selected?: boolean;
+  onClick?: () => void;
 }
 
 export default function CategoryItem({
