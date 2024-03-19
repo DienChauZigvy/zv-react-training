@@ -8,6 +8,8 @@ interface ButtonProps {
   onClick?: () => void;
   icon?: React.ElementType;
   el?: React.ReactNode;
+
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,14 +18,26 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   icon: Icon,
   el,
+  disabled,
+  ...props
 }) => {
   const cx = classNames.bind(styles);
   const buttonClass = cx(
     styles.button,
     ...(externalClassName ? externalClassName.split(" ") : []),
+    {
+      [styles.disabled]: disabled,
+    },
   );
+
+  // console.log("disabled", disabled);
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button
+      // disabled={disabled}
+      {...props}
+      className={buttonClass}
+      onClick={onClick}
+    >
       {Icon && <Icon size={24} className={styles.icon} />}
       {el && el}
       <div className={styles.title}>{title}</div>

@@ -1,54 +1,32 @@
-import { FC, forwardRef, DetailedHTMLProps, InputHTMLAttributes } from "react";
 import {
   FieldValues,
   UseControllerProps,
   useController,
-  useForm,
 } from "react-hook-form";
+import styles from "./InputField.module.scss";
+import cx from "classnames";
 
 export type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   id?: string;
   name?: string;
   label?: string;
-
   className?: string;
+  type?: "text" | "password";
+  placeholder?: string;
 };
 
 export default function Input<T extends FieldValues>(props: InputProps<T>) {
   const { field } = useController(props);
+
   return (
-    // <input
-    //   id={id}
-    //   ref={ref}
-    //   name={name}
-    //   type={type}
-    //   aria-label={label}
-    //   placeholder={placeholder}
-    // />
-    <input {...field} />
+    <div className={styles.inputContainer}>
+      {props.label && <span>{props.label}:</span>}
+      <input
+        {...field}
+        placeholder={props.placeholder}
+        type={props.type || "text"}
+        className={cx(styles.input, props.className)}
+      />
+    </div>
   );
 }
-
-// export type InputProps = {
-//   name: string;
-//   label?: string;
-//   type?: string;
-//   className?: string;
-//   onChange?: () => void;
-//   register?: any;
-// };
-
-// export default function Input({
-//   register,
-//   name,
-//   type,
-//   label,
-//   ...inputProps
-// }: InputProps) {
-//   return (
-//     <>
-//       <label htmlFor={name}>{label}</label>
-//       <input ref={register} name={name} type={type} {...inputProps} />
-//     </>
-//   );
-// }

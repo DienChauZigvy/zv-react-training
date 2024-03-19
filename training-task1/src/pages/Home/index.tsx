@@ -15,7 +15,7 @@ export default function Home() {
       <div className={styles.sticky}>
         <Category />
       </div>
-      <RegistrationForm />
+      {/* <RegistrationForm /> */}
       {/* <button
         onClick={() => {
           toast?.showToast("This is warning toast", ToastTypes.WARNING);

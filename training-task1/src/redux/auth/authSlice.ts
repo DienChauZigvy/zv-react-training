@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../types";
-import type { RootState } from "../store";
+import { User } from '../../types/user';
 
 export interface LoginPayload {
   username: string;
@@ -23,7 +22,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login(state) {
+    login(state, action: PayloadAction<LoginPayload>) {
       state.logging = true;
     },
     loginSuccess(state, action: PayloadAction<User>) {
@@ -31,12 +30,13 @@ const authSlice = createSlice({
       state.logging = false;
       state.currentUser = action.payload;
     },
-    loginFailed(state) {
+    loginFailed(state, action: PayloadAction<string>) {
       state.logging = false;
     },
     logout(state) {
       state.isLoggedIn = false;
       state.currentUser = undefined;
+      state.logging =false
     },
   },
 });
@@ -45,8 +45,8 @@ const authSlice = createSlice({
 export const authActions = authSlice.actions;
 
 //Selectors
-export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
-export const selectIsLogging = (state: RootState) => state.auth.logging;
+export const selectIsLoggedIn = (state: any) => state.auth.isLoggedIn;
+export const selectIsLogging = (state: any) => state.auth.logging;
 
 const authReducer = authSlice.reducer;
 

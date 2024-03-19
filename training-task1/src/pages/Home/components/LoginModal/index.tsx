@@ -1,14 +1,14 @@
-import styles from "./LoginModal.module.scss";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { createPortal } from "react-dom";
-import Modal from "../../../../components/Modal";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { countries } from "../../../../data/countryCode";
-import { useState } from "react";
-import Button from "../../../../components/Button";
-import { FaFacebookSquare, FaApple } from "react-icons/fa";
+import { FaApple, FaFacebookSquare } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import Button from "../../../../components/Button";
+import FormInput from "../../../../components/ControllerInput";
+import Modal from "../../../../components/Modal";
+import { LoginPayload } from "../../../../redux/auth/authSlice";
+import styles from "./LoginModal.module.scss";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -20,47 +20,26 @@ export interface CountryProps {
   isoCode: string;
 }
 
-interface IFormInput {
-  countryName: string;
-  phoneNumber: number;
-}
 export default function LoginModal({ onClose }: LoginModalProps) {
-  const [showCountryCode, setShowCountryCode] = useState(false);
-  const [selectedCountryCode, setSelectedCountryCode] = useState("+84");
-
   const validationSchema = yup.object({
-    countryName: yup.string().required("Country name is required"),
-    phoneNumber: yup.number().required("Phone number is required"),
+    username: yup.string().required("First name is required"),
+    password: yup.string().required("Password is required"),
   });
+
   const {
-    register,
     handleSubmit,
-    setValue,
+    control,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<LoginPayload>({
     defaultValues: {
-      countryName: "Vietnam +84",
-      phoneNumber: undefined,
+      username: "",
+      password: "",
     },
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
-
-  const handleFocus = () => {
-    setShowCountryCode(true);
-  };
-
-  const handleBlur = () => {
-    setShowCountryCode(false);
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const countryCode =
-      countries.find((country) => country.isoCode === event.target.value)
-        ?.countryCode || "";
-    setSelectedCountryCode(countryCode);
-    setValue("countryName", event.target.value);
+  const onSubmit: SubmitHandler<LoginPayload> = (data) => {
+    console.log({ data });
   };
 
   const GoogleIcon = (
@@ -93,36 +72,22 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     <Modal onClose={onClose} title="Log in or sign up">
       <div className={styles.titleHeader}>Welcome to Airbnb</div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formInput}>
-        <div className={styles.topInput}>
-          <div className={styles.selectInput}>
-            <label htmlFor="countrySelect">Country code</label>
-            <select
-              id="countrySelect"
-              {...register("countryName")}
-              onChange={handleSelectChange}
-            >
-              {countries.map((country) => (
-                <option key={country.isoCode} value={country.isoCode}>
-                  {country.countryName} ({country.countryCode})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.inputContainer}>
-            {showCountryCode && selectedCountryCode && (
-              <span>{selectedCountryCode}</span>
-            )}
-            <input
-              {...register("phoneNumber")}
-              required
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            <label>Phone number</label>
-          </div>
-          <span className={styles.error}>{errors.phoneNumber?.message}</span>
-        </div>
+        <FormInput
+          control={control}
+          type="text"
+          name="username"
+          label="User name"
+          placeholder="username"
+        />
+        <span className={styles.errorMessage}>{errors.username?.message}</span>
+        <FormInput
+          control={control}
+          type="password"
+          name="password"
+          label="Password"
+          placeholder="password"
+        />
+        <span className={styles.errorMessage}>{errors.password?.message}</span>
 
         <p className={styles.confirmText}>
           We’ll call or text you to confirm your number. Standard message and
