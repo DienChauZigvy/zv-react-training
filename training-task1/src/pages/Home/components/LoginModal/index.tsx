@@ -9,6 +9,7 @@ import FormInput from "../../../../components/ControllerInput";
 import Modal from "../../../../components/Modal";
 import { LoginPayload } from "../../../../redux/auth/authSlice";
 import styles from "./LoginModal.module.scss";
+import { useToast } from "../../../../components/Toast/ToastContext";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -21,6 +22,7 @@ export interface CountryProps {
 }
 
 export default function LoginModal({ onClose }: LoginModalProps) {
+  const toast = useToast();
   const validationSchema = yup.object({
     username: yup.string().required("First name is required"),
     password: yup.string().required("Password is required"),
@@ -40,6 +42,8 @@ export default function LoginModal({ onClose }: LoginModalProps) {
 
   const onSubmit: SubmitHandler<LoginPayload> = (data) => {
     console.log({ data });
+    toast?.success(`${data.username} login sucess`);
+    onClose();
   };
 
   const GoogleIcon = (
