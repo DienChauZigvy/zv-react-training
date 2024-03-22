@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ToastContext, ToastTypes } from "./ToastContext";
 import styles from "./Toast.module.scss";
 import { Toast } from ".";
+import { v4 as uuidv4 } from "uuid";
 
 interface ToastProviderProperties {
   children: React.ReactElement;
@@ -9,7 +10,7 @@ interface ToastProviderProperties {
 
 interface ToastType {
   message: string;
-  id: number;
+  id: string;
   type?: ToastTypes;
 }
 
@@ -18,14 +19,14 @@ export function ToastProvider({ children }: ToastProviderProperties) {
 
   function openToast(message: string) {
     const newToast: ToastType = {
-      id: Date.now(),
+      id: uuidv4(),
       message,
       type: ToastTypes.INFO,
     };
     setToasts((previousToasts) => [...previousToasts, newToast]);
   }
 
-  function closeToast(id: number) {
+  function closeToast(id: string) {
     setToasts((previousToasts) =>
       previousToasts.filter((toast) => toast.id !== id),
     );
@@ -33,7 +34,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
 
   const showToast = (message: string, type: ToastTypes = ToastTypes.INFO) => {
     const newToast: ToastType = {
-      id: new Date().getTime(),
+      id: uuidv4(),
       message,
       type,
     };
@@ -42,7 +43,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
 
   const success = (message: string) => {
     const newToast: ToastType = {
-      id: Date.now(),
+      id: uuidv4(),
       message,
       type: ToastTypes.SUCCESS,
     };
@@ -50,7 +51,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
   };
   const info = (message: string) => {
     const newToast: ToastType = {
-      id: Date.now(),
+      id: uuidv4(),
       message,
       type: ToastTypes.INFO,
     };
@@ -58,7 +59,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
   };
   const error = (message: string) => {
     const newToast: ToastType = {
-      id: Date.now(),
+      id: uuidv4(),
       message,
       type: ToastTypes.ERROR,
     };
@@ -66,7 +67,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
   };
   const warning = (message: string) => {
     const newToast: ToastType = {
-      id: Date.now(),
+      id: uuidv4(),
       message,
       type: ToastTypes.WARNING,
     };

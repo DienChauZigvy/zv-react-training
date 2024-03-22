@@ -11,7 +11,7 @@ export type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   name?: string;
   label?: string;
   className?: string;
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
   placeholder?: string;
 };
 

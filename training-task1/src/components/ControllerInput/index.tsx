@@ -4,7 +4,7 @@ import Input from "../FormControllers/InputField";
 export type FormInputProps<TFormValues extends FieldValues> = {
   name: Path<TFormValues>;
   control: Control<TFormValues>;
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
   label?: string;
   placeholder?: string;
   className?: string;

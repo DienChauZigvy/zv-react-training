@@ -13,7 +13,7 @@ function useTimeout(callbackFunction: () => void) {
   }, [callbackFunction]);
 
   useEffect(() => {
-    const functionId = setTimeout(() => savedCallback.current(), 3000);
+    const functionId = setTimeout(() => savedCallback.current(), 6000);
     return () => clearTimeout(functionId);
   }, []);
 }

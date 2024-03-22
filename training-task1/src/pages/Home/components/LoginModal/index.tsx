@@ -10,6 +10,8 @@ import Modal from "../../../../components/Modal";
 import { LoginPayload } from "../../../../redux/auth/authSlice";
 import styles from "./LoginModal.module.scss";
 import { useToast } from "../../../../components/Toast/ToastContext";
+import authApi from "../../../../api/authAPI";
+import { AxiosError } from "axios";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -24,7 +26,7 @@ export interface CountryProps {
 export default function LoginModal({ onClose }: LoginModalProps) {
   const toast = useToast();
   const validationSchema = yup.object({
-    username: yup.string().required("First name is required"),
+    email: yup.string().required("Email is required"),
     password: yup.string().required("Password is required"),
   });
 
@@ -34,16 +36,32 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     formState: { errors },
   } = useForm<LoginPayload>({
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginPayload> = (data) => {
-    console.log({ data });
-    toast?.success(`${data.username} login sucess`);
-    onClose();
+  const onSubmit: SubmitHandler<LoginPayload> = async (data) => {
+    // console.log({ data });
+    try {
+      const response = await authApi.login(data);
+      console.log({ response });
+      toast?.success(`${data.email} login sucess`);
+      onClose();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        let message = error.response?.data.message || "Server Unavailable";
+        let code = error.response?.status || 503;
+
+        toast?.error(`${code}:  ${message}`);
+      } else if (error instanceof Error) {
+        let message = error.message;
+        toast?.error(`${message}`);
+      }
+
+      console.log(error);
+    }
   };
 
   const GoogleIcon = (
@@ -78,12 +96,12 @@ export default function LoginModal({ onClose }: LoginModalProps) {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formInput}>
         <FormInput
           control={control}
-          type="text"
-          name="username"
+          type="email"
+          name="email"
           label="User name"
-          placeholder="username"
+          placeholder="email"
         />
-        <span className={styles.errorMessage}>{errors.username?.message}</span>
+        <span className={styles.errorMessage}>{errors.email?.message}</span>
         <FormInput
           control={control}
           type="password"
