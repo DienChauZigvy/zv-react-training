@@ -1,6 +1,12 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { authApi } from ".";
 
-const axiosClient = axios.create({
+const axiosClient: AxiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
@@ -9,6 +15,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
+    const accessToken = localStorage.getItem("access_token");
+
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
     return config;
   },
   function (error) {
@@ -18,9 +29,28 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
   function (response: AxiosResponse) {
-    return response.data;
+    return response?.data ?? response;
   },
-  function (error) {
+  async (error: AxiosError<any>) => {
+    const originalRequest = error.config;
+
+    if (error?.response?.status === 401) {
+      try {
+        // const { data } = await axiosInstance.post<{ accessToken: string }>('/refreshToken', { refreshToken });
+        const tokens = await authApi.refreshToken();
+        console.log({ tokens });
+        localStorage.setItem("accessToken", tokens.accessToken);
+        originalRequest!.headers.Authorization = `Bearer ${tokens.accessToken}`;
+        return axiosClient(originalRequest);
+      } catch (refreshError) {
+        console.error("Failed to refresh token", refreshError);
+        // redirect to login
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+
+        return Promise.reject(refreshError);
+      }
+    }
     return Promise.reject(error);
   },
 );

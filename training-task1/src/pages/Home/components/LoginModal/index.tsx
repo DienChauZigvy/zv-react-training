@@ -10,8 +10,9 @@ import Modal from "../../../../components/Modal";
 import { LoginPayload } from "../../../../redux/auth/authSlice";
 import styles from "./LoginModal.module.scss";
 import { useToast } from "../../../../components/Toast/ToastContext";
-import authApi from "../../../../api/authAPI";
+import { authApi } from "../../../../api/authAPI";
 import { AxiosError } from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -33,6 +34,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<LoginPayload>({
     defaultValues: {
@@ -42,25 +44,38 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     resolver: yupResolver(validationSchema),
   });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: (body: LoginPayload) => {
+      return authApi.login(body);
+    },
+  });
+
   const onSubmit: SubmitHandler<LoginPayload> = async (data) => {
-    // console.log({ data });
     try {
-      const response = await authApi.login(data);
-      console.log({ response });
-      toast?.success(`${data.email} login sucess`);
-      onClose();
+      // const response = await authApi.login(data);
+      const response = await mutateAsync(data, {
+        onSuccess: () => {
+          toast?.success(`${data.email} login sucess`);
+          onClose();
+          reset();
+        },
+      });
+      // console.log(response);
+
+      if (response) {
+        localStorage.setItem("access_token", response.accessToken);
+        localStorage.setItem("refresh_token", response.refreshToken);
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         let message = error.response?.data.message || "Server Unavailable";
         let code = error.response?.status || 503;
-
-        toast?.error(`${code}:  ${message}`);
+        toast?.error(`${code}: ${message}`);
       } else if (error instanceof Error) {
         let message = error.message;
         toast?.error(`${message}`);
       }
-
-      console.log(error);
+      // console.log(error);
     }
   };
 

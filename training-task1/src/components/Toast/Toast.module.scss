@@ -52,7 +52,21 @@
     }
 
     .error {
-        background-color: #F5222D;
+        background-color: #fff;
+
+        .content {
+            color: #222;
+
+            .icon {
+                // background-color: #F5222D;
+                font-size: 30px;
+                color: #F5222D;
+            }
+        }
+
+        .closeButton {
+            color: #222;
+        }
     }
 
     .warning {
