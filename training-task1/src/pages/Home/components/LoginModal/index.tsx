@@ -48,6 +48,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     mutationFn: (body: LoginPayload) => {
       return authApi.login(body);
     },
+    mutationKey: ["login"],
   });
 
   const onSubmit: SubmitHandler<LoginPayload> = async (data) => {

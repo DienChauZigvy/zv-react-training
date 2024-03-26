@@ -9,13 +9,21 @@ export const authApi = {
   },
   refreshToken(): Promise<LoginResponse> {
     const url = "/auth/refresh";
+
     let refreshToken = localStorage.getItem("refresh_token");
+
     if (!refreshToken) {
       throw new Error("Cannot get refreshToken");
     }
-    return axiosClient.post(url, {
-      refreshToken,
-    });
+
+    const headers = { Authorization: `Bearer ${refreshToken}` };
+
+    console.log({ headers });
+    return axiosClient.post(url, { headers });
+  },
+  logout() {
+    const url = "/auth/logout";
+    return axiosClient.post(url);
   },
 };
 

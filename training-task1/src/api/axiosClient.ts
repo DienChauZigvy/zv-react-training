@@ -1,10 +1,9 @@
 import axios, {
-  AxiosError,
   AxiosInstance,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { authApi } from ".";
+import { LoginResponse } from "../types";
 
 const axiosClient: AxiosInstance = axios.create({
   baseURL: "http://localhost:3000",
@@ -31,22 +30,43 @@ axiosClient.interceptors.response.use(
   function (response: AxiosResponse) {
     return response?.data ?? response;
   },
-  async (error: AxiosError<any>) => {
-    const originalRequest = error.config;
-
+  async (error) => {
+    // const originalRequest = error.config;
+    // console.log(22, error?.response?.status === 401);
     if (error?.response?.status === 401) {
       try {
-        // const { data } = await axiosInstance.post<{ accessToken: string }>('/refreshToken', { refreshToken });
-        const tokens = await authApi.refreshToken();
-        console.log({ tokens });
-        localStorage.setItem("accessToken", tokens.accessToken);
-        originalRequest!.headers.Authorization = `Bearer ${tokens.accessToken}`;
-        return axiosClient(originalRequest);
+        const url = "http://localhost:3000/auth/refresh";
+        let refreshToken = localStorage.getItem("refresh_token");
+
+        console.log(refreshToken);
+        if (!refreshToken) {
+          throw new Error("Cannot get refreshToken");
+        }
+
+        const headers = { Authorization: `Bearer ${refreshToken}` };
+        console.log(111, headers);
+        const data = await fetch(url, {
+          method: "POST",
+          headers,
+        });
+
+        const tokens: LoginResponse = await data.json();
+
+        // const tokens = await authApi.refreshToken();
+        // console.log(await tokens.json());
+
+        if (tokens) {
+          localStorage.setItem("access_token", tokens.accessToken);
+          localStorage.setItem("refresh_token", tokens.refreshToken);
+        }
+
+        // originalRequest!.headers.Authorization = `Bearer ${tokens.accessToken}`;
+        // return axiosClient(originalRequest);
       } catch (refreshError) {
         console.error("Failed to refresh token", refreshError);
         // redirect to login
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
+        // localStorage.removeItem("access_token");
+        // localStorage.removeItem("refresh_token");
 
         return Promise.reject(refreshError);
       }
