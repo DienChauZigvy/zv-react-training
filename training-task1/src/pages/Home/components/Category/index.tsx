@@ -13,13 +13,17 @@ export default function Category() {
     <div className={styles.categoryContainer}>
       <div className={styles.categoryList}>
         {categoryList.map((item, index) => (
-          <CategoryItem
-            key={index}
-            title={item.title}
-            icon={item.icon}
-            selected={!!activeTab}
+          <div
+            className={styles.flexShink}
             onClick={() => setActiveTab(index)}
-          />
+            key={index}
+          >
+            <CategoryItem
+              title={item.title}
+              icon={item.icon}
+              selected={index === activeTab}
+            />
+          </div>
         ))}
       </div>
 

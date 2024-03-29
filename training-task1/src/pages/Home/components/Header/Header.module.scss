@@ -6,8 +6,6 @@
     border-bottom: 1px solid #f0e8e8;
     padding-bottom: 20px;
 
-
-
     .topHeader {
         padding: 0 80px;
         width: calc(100% - 160px);
@@ -20,8 +18,15 @@
         position: fixed;
         top: 0;
         z-index: 10;
+        margin-left: -8px;
 
         @include mobile {
+            padding-left: 10px;
+            padding-right: 10px;
+            width: calc(100% - 20px);
+        }
+
+        @include mid-moblie {
             padding-left: 10px;
             padding-right: 10px;
             width: calc(100% - 20px);
@@ -37,6 +42,7 @@
             padding-left: 10px;
             padding-right: 10px;
             width: calc(100% - 20px);
+
         }
 
 
@@ -54,9 +60,13 @@
                 display: none;
             }
 
-            @include tablet {
+            @include mid-moblie {
                 display: none;
             }
+
+            // @include tablet {
+            //     display: none;
+            // }
 
             &:hover {
                 color: v.$text-colour-dark;
@@ -172,7 +182,7 @@
 
     .searchContainer {
         margin: 0 auto;
-        margin-top: 80px;
+        margin-top: 85px;
         display: flex;
         align-items: center;
         width: 850px;
@@ -191,13 +201,17 @@
             display: none;
         }
 
+        @include mid-moblie {
+            display: none;
+        }
+
+
         @include tablet {
             display: none;
         }
 
         @include medium {
-            padding-left: 10px;
-            padding-right: 10px;
+
             width: auto;
             min-width: 0;
         }

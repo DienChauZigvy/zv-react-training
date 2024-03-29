@@ -3,8 +3,10 @@
 .locationListContainer {
     gap: 24px;
     display: grid;
+    // display: flex;
+    // flex-wrap: wrap;
     margin: 0 auto;
-    justify-content: space-between;
+    // justify-content: flex-start;
     padding: 20px 80px;
 
     @include mobile {
@@ -12,8 +14,14 @@
         padding: 10px;
     }
 
-    @include tablet {
+    @include mid-moblie {
+        margin-top: 50px;
         grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+    }
+
+    @include tablet {
+        grid-template-columns: repeat(3, 1fr);
         padding: 10px;
         margin: 0 auto;
         margin-top: 50px;

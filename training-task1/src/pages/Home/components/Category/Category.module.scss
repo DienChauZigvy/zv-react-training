@@ -16,6 +16,11 @@
         padding-right: 10px;
     }
 
+    @include mid-moblie {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
     @include tablet {
         padding-left: 10px;
         padding-right: 10px;
@@ -31,6 +36,12 @@
         gap: 20px;
         overflow: scroll;
         flex-grow: 1;
+        justify-content: space-between;
+
+        .flexShink {
+            flex-shrink: 0;
+        }
+
     }
 
     .filterContainer {
@@ -54,6 +65,10 @@
             min-width: 200px;
 
             @include mobile {
+                display: none;
+            }
+
+            @include mid-moblie {
                 display: none;
             }
 

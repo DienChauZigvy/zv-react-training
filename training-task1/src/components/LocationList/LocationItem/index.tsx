@@ -22,7 +22,7 @@ export default function LocationItem({
 
       <div className={`${styles.description} ${styles.truncate}`}>
         <div className={`${styles.title} ${styles.truncate}`}>
-          <span>{title}</span>
+          <span className={styles.truncate}>{title}</span>
           <p>
             <IoMdStarOutline />
             {rates}

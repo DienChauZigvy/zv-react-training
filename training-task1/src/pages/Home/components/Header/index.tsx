@@ -5,10 +5,32 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
 
 import LoginModal from "../LoginModal";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "../../../../api/authAPI";
 
 export default function Header() {
   const [isShowMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: () => {
+      return authApi.logout();
+    },
+    mutationKey: ["logout"],
+  });
+
+  const handleLogout = async () => {
+    try {
+      const res = await mutateAsync();
+      // console.log({ res });
+      if (res) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.headerContainer}>
@@ -73,6 +95,9 @@ export default function Header() {
               <div className={styles.dropDownItem}>Gift cards</div>
               <div className={styles.dropDownItem}>Airbnb your home</div>
               <div className={styles.dropDownItem}>Help center</div>
+              <div className={styles.dropDownItem} onClick={handleLogout}>
+                Logout
+              </div>
             </div>
           </div>
         </div>

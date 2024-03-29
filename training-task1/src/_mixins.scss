@@ -9,6 +9,12 @@ $xl: 1280px;
     }
 }
 
+@mixin mid-moblie {
+    @media (min-width: #{$sm}) and (max-width: #{$md - 1px}) {
+        @content;
+    }
+}
+
 @mixin tablet {
     @media (min-width: #{$md}) and (max-width: #{$lg - 1px}) {
         @content;
