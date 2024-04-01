@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .modalContainer {
     position: fixed;
     left: 0;
@@ -18,10 +20,22 @@
         background-color: white;
         width: 600px;
         max-width: 50%;
-        animation: scaleUp 0.5s;
+        animation: scaleUp 0.4s;
         max-height: fit-content;
         overflow-y: scroll;
+
         // height: -webkit-fill-available;
+        @include mobile {
+            max-width: 90%;
+        }
+
+        @include mid-moblie {
+            max-width: 80%;
+        }
+
+        @include tablet {
+            max-width: 70%;
+        }
 
         .btn {
             outline: none;

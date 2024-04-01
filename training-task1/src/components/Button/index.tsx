@@ -7,7 +7,7 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   icon?: React.ElementType;
-  el?: React.ReactNode;
+  el?: React.ReactNode | JSX.Element;
 
   disabled?: boolean;
 }

@@ -26,6 +26,7 @@ export default function Input<T extends FieldValues>(props: InputProps<T>) {
         placeholder={props.placeholder}
         type={props.type || "text"}
         className={cx(styles.input, props.className)}
+        autoComplete="true"
       />
     </div>
   );

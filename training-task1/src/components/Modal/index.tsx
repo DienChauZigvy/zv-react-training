@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styles from "./Modal.module.scss";
+import { createPortal } from "react-dom";
 
 interface modalProps {
   onSubmit?: () => void;
@@ -16,7 +17,7 @@ const Modal = ({
   children,
   title,
 }: modalProps) => {
-  return (
+  return createPortal(
     <div className={styles.modalContainer}>
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
@@ -43,7 +44,8 @@ const Modal = ({
             </button>
           </div> */}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 

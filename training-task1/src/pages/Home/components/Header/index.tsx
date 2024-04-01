@@ -2,15 +2,21 @@ import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import { MdLanguage, MdOutlineMenu, MdAccountCircle } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LoginModal from "../LoginModal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../../../../api/authAPI";
 
 export default function Header() {
   const [isShowMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const queryClient = useQueryClient();
+  const profile = queryClient.getQueryData(["profile"]);
+  // useEffect(() => {
+  //   console.log("header", profile);
+  // }, [profile]);
 
   const { mutateAsync } = useMutation({
     mutationFn: () => {
@@ -22,7 +28,6 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       const res = await mutateAsync();
-      // console.log({ res });
       if (res) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");

@@ -1,18 +1,20 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createPortal } from "react-dom";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaApple, FaFacebookSquare } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import * as yup from "yup";
+import { authApi } from "../../../../api/authAPI";
 import Button from "../../../../components/Button";
 import FormInput from "../../../../components/ControllerInput";
 import Modal from "../../../../components/Modal";
+import { useToast } from "../../../../components/Toast/ToastContext";
+import { useProfile } from "../../../../hooks/useProfile";
 import { LoginPayload } from "../../../../redux/auth/authSlice";
 import styles from "./LoginModal.module.scss";
-import { useToast } from "../../../../components/Toast/ToastContext";
-import { authApi } from "../../../../api/authAPI";
-import { AxiosError } from "axios";
-import { useMutation } from "@tanstack/react-query";
+import GoogleIcon from "./GoogeIcon";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -44,24 +46,33 @@ export default function LoginModal({ onClose }: LoginModalProps) {
     resolver: yupResolver(validationSchema),
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isSuccess } = useMutation({
     mutationFn: (body: LoginPayload) => {
       return authApi.login(body);
     },
     mutationKey: ["login"],
   });
+  // console.log("isSuccess", isSuccess);
+  const { data: profile, isSuccess: isProfileSuccess } = useProfile({
+    enabled: isSuccess,
+  });
+  // console.log(11, profile);
+  // console.log({ isSuccess });
+
+  useEffect(() => {
+    if (isSuccess && isProfileSuccess) {
+      onClose();
+    }
+  }, [isSuccess, isProfileSuccess]);
 
   const onSubmit: SubmitHandler<LoginPayload> = async (data) => {
     try {
-      // const response = await authApi.login(data);
       const response = await mutateAsync(data, {
         onSuccess: () => {
           toast?.success(`${data.email} login sucess`);
-          onClose();
           reset();
         },
       });
-      // console.log(response);
 
       if (response) {
         localStorage.setItem("access_token", response.accessToken);
@@ -76,37 +87,10 @@ export default function LoginModal({ onClose }: LoginModalProps) {
         let message = error.message;
         toast?.error(`${message}`);
       }
-      // console.log(error);
     }
   };
 
-  const GoogleIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      role="presentation"
-      focusable="false"
-      style={{ display: "block", height: "20px", width: "20px" }}
-    >
-      <path
-        fill="#4285f4"
-        d="M24.12 25c2.82-2.63 4.07-7 3.32-11.19H16.25v4.63h6.37A5.26 5.26 0 0 1 20.25 22z"
-      ></path>
-      <path
-        fill="#34a853"
-        d="M5.62 21.31A12 12 0 0 0 24.12 25l-3.87-3a7.16 7.16 0 0 1-10.69-3.75z"
-      ></path>
-      <path
-        fill="#fbbc02"
-        d="M9.56 18.25c-.5-1.56-.5-3 0-4.56l-3.94-3.07a12.08 12.08 0 0 0 0 10.7z"
-      ></path>
-      <path
-        fill="#ea4335"
-        d="M9.56 13.69c1.38-4.32 7.25-6.82 11.19-3.13l3.44-3.37a11.8 11.8 0 0 0-18.57 3.43l3.94 3.07z"
-      ></path>
-    </svg>
-  );
-  return createPortal(
+  return (
     <Modal onClose={onClose} title="Log in or sign up">
       <div className={styles.titleHeader}>Welcome to Airbnb</div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formInput}>
@@ -149,7 +133,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
       <Button
         className="btnSignIn"
         title="Continue with Google"
-        el={GoogleIcon}
+        el={<GoogleIcon />}
       />
       <Button
         className="btnSignIn"
@@ -161,7 +145,6 @@ export default function LoginModal({ onClose }: LoginModalProps) {
         title="Continue with Email"
         icon={MdMailOutline}
       />
-    </Modal>,
-    document.body,
+    </Modal>
   );
 }

@@ -36,11 +36,6 @@
                 color: #222
             }
 
-            // span {
-            //     display: block;
-            //     font-weight: 600;
-            //     color: #222
-            // }
 
             p {
                 display: flex;
@@ -75,11 +70,11 @@
         height: 300px;
 
         @include mobile {
-            // height: 400px;
+            height: 280px;
         }
 
         @include tablet {
-            // height: 400px;
+            height: 280px;
         }
 
         &:hover {
@@ -98,7 +93,7 @@
 
 
         .slide {
-            border-radius: 32px;
+            border-radius: 20px;
             // box-shadow: 0px 0px 7px #666;
             width: 100%;
             height: 100%;

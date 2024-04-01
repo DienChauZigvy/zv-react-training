@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
-import { Login, LoginResponse } from "../types/auth";
+import { LoginPayload, LoginResponse } from "../types/auth";
 
 export const authApi = {
-  login(data: Login): Promise<LoginResponse> {
+  login(data: LoginPayload): Promise<LoginResponse> {
     const url = "/auth/login";
 
     return axiosClient.post(url, data);
@@ -26,5 +26,3 @@ export const authApi = {
     return axiosClient.post(url);
   },
 };
-
-// export default authApi;

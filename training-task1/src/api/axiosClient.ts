@@ -3,7 +3,6 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { LoginResponse } from "../types";
 
 const axiosClient: AxiosInstance = axios.create({
   baseURL: "http://localhost:3000",
